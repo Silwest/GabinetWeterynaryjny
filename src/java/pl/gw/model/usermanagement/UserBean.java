@@ -55,5 +55,9 @@ public class UserBean {
     public void detach(User user) {
         em.detach(user);
     }
+
+    public User createUser(User user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
