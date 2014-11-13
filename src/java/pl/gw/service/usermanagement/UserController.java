@@ -6,11 +6,17 @@
 package pl.gw.service.usermanagement;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import org.apache.commons.codec.digest.DigestUtils;
 import pl.gw.model.User;
+import pl.gw.model.usermanagement.Group;
 import pl.gw.model.usermanagement.UserBean;
 
 /**
@@ -19,16 +25,30 @@ import pl.gw.model.usermanagement.UserBean;
  */
 @ManagedBean
 @RequestScoped
-public class UserController implements Serializable{
+public class UserController implements Serializable {
 
     @EJB
     private UserBean userBean;
     private User user = new User();
+    private FacesContext facesContext = null;
 
     public String doCreateUser() {
+
+        List<Group> groups = new ArrayList<Group>();
+
+        groups.add(Group.ADMINISTRATOR);
+
+        user.setGroups(groups);
         user.setRegisteredOn(new Date());
-        userBean.save(user);
-        return "auth/listUsers.xhtml";
+        try {
+            userBean.save(user);
+        } catch (RuntimeException exception){
+            facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Problem ze stworzeniem konta" + exception.getMessage(), exception.getMessage()));
+            System.out.println("Kuffa");
+        }
+
+        return "base.xhtml";
     }
 
     public UserBean getUserBean() {
@@ -46,9 +66,9 @@ public class UserController implements Serializable{
     public void setUser(User user) {
         this.user = user;
     }
-    
-    public UserController(){
-    
+
+    public UserController() {
+
     }
-    
+
 }

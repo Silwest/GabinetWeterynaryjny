@@ -15,17 +15,17 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import org.apache.commons.codec.digest.DigestUtils;
 import pl.gw.model.usermanagement.Group;
-import pl.gw.model.usermanagement.dto.UserDTO;
 
 /**
  *
@@ -40,17 +40,6 @@ public class User implements Serializable {
     public static final String FIND_BY_EMAIL = "User.findUserByEmail";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @Column(unique = true, nullable = false, length = 128)
     private String email;
 
@@ -60,6 +49,9 @@ public class User implements Serializable {
     private String lastName;
     @Column(nullable = false, length = 128)
     private String password;
+
+    @Transient
+    private String passwordConfirmation;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -77,20 +69,17 @@ public class User implements Serializable {
     private List<Group> groups;
 
     public User() {
-
     }
 
-    public User(UserDTO user) {
-        if (user.getPassword1() == null || user.getPassword1().length() == 0
-                || !user.getPassword1().equals(user.getPassword2())) {
-            throw new RuntimeException("Password 1 and Password 2 have to be equal (typo?)");
-        }
+    @PrePersist
+    public void passwordValidate() {
+        if (this.getPassword() == null || this.getPasswordConfirmation().length() == 0
+                || !this.getPasswordConfirmation().equals(this.getPassword())) {
 
-        this.email = user.getEmail();
-        this.firstName = user.getFName();
-        this.lastName = user.getLName();
-        this.password = user.getPassword1();
-        this.registeredOn = new Date();
+            throw new RuntimeException("Hasla sie nie zgadzaja!");
+        }
+        String decryptedPassword = DigestUtils.sha512Hex(this.getPassword());
+        this.setPassword(decryptedPassword);
     }
 
     public String getEmail() {
@@ -141,6 +130,14 @@ public class User implements Serializable {
         this.groups = groups;
     }
 
+    public String getPasswordConfirmation() {
+        return passwordConfirmation;
+    }
+
+    public void setPasswordConfirmation(String passwordConfirmation) {
+        this.passwordConfirmation = passwordConfirmation;
+    }
+
     @Override
     public String toString() {
         return "User [email" + this.email + ", firstName" + this.firstName
@@ -148,21 +145,5 @@ public class User implements Serializable {
                 + ", registeredOn=" + this.registeredOn + ", groups"
                 + this.groups + "]";
     }
-
-    @Override
-    public int hashCode() {
-        return this.getId();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof User){
-            User user = (User) obj;
-            return user.getId() == this.getId();
-        }
-        return false;
-    }
-    
-    
 
 }

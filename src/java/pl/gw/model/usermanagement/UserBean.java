@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PrePersist;
 import javax.persistence.TypedQuery;
 import pl.gw.model.User;
 
@@ -54,10 +55,6 @@ public class UserBean {
 
     public void detach(User user) {
         em.detach(user);
-    }
-
-    public User createUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

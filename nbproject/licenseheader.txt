@@ -1,0 +1,7 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix} Gabinet Weterynaryjny - projekt zaliczeniowy
+<#if licenseLast??>
+${licenseLast}
+</#if>
