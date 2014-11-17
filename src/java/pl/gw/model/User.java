@@ -5,6 +5,9 @@
  */
 package pl.gw.model;
 
+import com.sun.xml.internal.messaging.saaj.util.Base64;
+import com.sun.xml.wss.impl.callback.PasswordValidationCallback.PasswordValidationException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +21,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
+import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,6 +30,7 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import org.apache.commons.codec.digest.DigestUtils;
 import pl.gw.model.usermanagement.Group;
+import pl.gw.smtp.EmailSessionBean;
 
 /**
  *
@@ -68,18 +73,30 @@ public class User implements Serializable {
     @Column(name = "groupname", length = 64, nullable = false)
     private List<Group> groups;
 
+    @Column(nullable = false, length = 128)
+    private String verficationKey;
+
     public User() {
     }
 
     @PrePersist
-    public void passwordValidate() {
+    public void passwordValidate() throws PasswordValidationException {
         if (this.getPassword() == null || this.getPasswordConfirmation().length() == 0
                 || !this.getPasswordConfirmation().equals(this.getPassword())) {
-
-            throw new RuntimeException("Hasla sie nie zgadzaja!");
+            throw new PasswordValidationException("Hasla sie nie zgadzaja!");
         }
         String decryptedPassword = DigestUtils.sha512Hex(this.getPassword());
+        String key = DigestUtils.sha256Hex(this.getEmail() + "." + this.getPassword());
+        this.setVerficationKey(key);
         this.setPassword(decryptedPassword);
+    }
+
+    // Wysylka key aktywacyjnego na email podany przy tworzeniu konta
+    @PostPersist
+    public void activationEmail() throws IOException {
+//        EmailSessionBean esb = new EmailSessionBean();
+//        esb.sendEmail("silwestpl@gmail.com", "subject", "body");
+
     }
 
     public String getEmail() {
@@ -136,6 +153,14 @@ public class User implements Serializable {
 
     public void setPasswordConfirmation(String passwordConfirmation) {
         this.passwordConfirmation = passwordConfirmation;
+    }
+
+    public String getVerficationKey() {
+        return verficationKey;
+    }
+
+    public void setVerficationKey(String verficationKey) {
+        this.verficationKey = verficationKey;
     }
 
     @Override

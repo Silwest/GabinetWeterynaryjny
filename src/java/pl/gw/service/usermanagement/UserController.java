@@ -14,7 +14,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import org.apache.commons.codec.digest.DigestUtils;
 import pl.gw.model.User;
 import pl.gw.model.usermanagement.Group;
 import pl.gw.model.usermanagement.UserBean;
@@ -45,10 +44,9 @@ public class UserController implements Serializable {
         } catch (RuntimeException exception){
             facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Problem ze stworzeniem konta" + exception.getMessage(), exception.getMessage()));
-            System.out.println("Kuffa");
         }
 
-        return "base.xhtml";
+        return "../base.xhtml";
     }
 
     public UserBean getUserBean() {
