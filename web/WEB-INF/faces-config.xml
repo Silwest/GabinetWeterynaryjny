@@ -3,5 +3,38 @@
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-
+    <application>
+        <message-bundle>
+            resources.MyMessage
+        </message-bundle>
+    </application>
+    <navigation-rule>
+        <!--<from-view-id>/*.xhtml</from-view-id>-->
+        <!--<from-view-id>/public/login.xhtml</from-view-id>-->
+        <navigation-case>
+            <!--<from-action>REGISTRATION_PAGE</from-action>-->
+            <from-outcome>REGISTRATION_PAGE</from-outcome>
+            <to-view-id>/public/registrationPage.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <!--<from-action>USER_OPTIONS</from-action>-->
+            <from-outcome>USER_OPTIONS</from-outcome>
+            <to-view-id>/user/userOptions.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <!--<from-action>HOME</from-action>-->
+            <from-outcome>HOME</from-outcome>
+            <to-view-id>/base.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <!--<from-action>ADMIN</from-action>-->
+            <from-outcome>ADMIN</from-outcome>
+            <to-view-id>/admin/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <!-- Obsluga wlasnych wiadomosci -->
 </faces-config>

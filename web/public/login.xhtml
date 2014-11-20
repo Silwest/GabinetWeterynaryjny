@@ -1,22 +1,28 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:p="http://primefaces.org/ui" 
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Login Form</title>
-    </h:head>
-    <h:body>
-        <p:panel header="Login From">
-            <form method="POST" action="j_security_check">
-                Username: <input type="text" name="j_username" />
-                Password: <input type="password" name="j_password" />
-                <br />
-                <input type="submit" value="Login" />
-                <input type="reset" value="Reset" />
-            </form> 
-        </p:panel>
-        <h:link outcome="registrationPage" value="Create account" />
-    </h:body>
-</html>
-
+<ui:composition template="../base.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="title">Login Form</ui:define>
+    <ui:define name="content">
+        <div style="margin: 0 auto;">
+            <p:panel header="Zaloguj sie">
+                <p:growl id="growl" sticky="true" showDetail="true" />
+                <h:form id="login" onsubmit="document.getElementById('login').action='j_security_check';" prependId="false">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel for="j_username" value="Email :" />
+                        <p:inputText id="j_username" required="true" />            
+                        <p:outputLabel for="j_password" value="Haslo:" />
+                        <p:password id="j_password" required="true" />
+                        <p:commandButton id="submit" value="Login" ajax="false"/>
+                        <p:button outcome="REGISTRATION_PAGE" value="Stworz nowe konto" />
+                    </h:panelGrid>
+                </h:form>
+                <h:form>
+                    
+                </h:form>
+            </p:panel>
+        </div>
+    </ui:define>
+</ui:composition>

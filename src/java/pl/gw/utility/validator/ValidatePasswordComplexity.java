@@ -30,7 +30,9 @@ public class ValidatePasswordComplexity implements Validator {
         matcher = pattern.matcher(componentValue);
 
         if (!matcher.find()) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Podane haslo nie spelnia wymogow", "Podane haslo nie spelnia wymogow");
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                    "Haslo musi zawierac minimum 8 znakow w tym 1 duza litere, 1 mala litere, 1 cyfre.", 
+                    "Haslo musi zawierac minimum 8 znakow w tym 1 duza litere, 1 mala litere, 1 cyfre.");
             throw new ValidatorException(facesMessage);
         }
     }

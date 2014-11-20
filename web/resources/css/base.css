@@ -1,0 +1,11 @@
+body {
+    /*margin: 0px;*/
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#head_menu {
+    float: left;
+    position: static;
+    overflow: hidden;
+}

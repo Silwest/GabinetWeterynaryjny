@@ -35,63 +35,63 @@ public class EmailSessionBean {
     private String password = "";
     private Protocol protocol = Protocol.SMTPS;
     private boolean debug = true;
-
-    public EmailSessionBean() throws IOException
-    {
-        PropertyValues pv = new PropertyValues();
-        Map<String, String> properties = pv.getPropValues();
-//        username = properties.get("emailUser");
-//        password = properties.get("emailPassword");
-        username = "silwestpl@gmail.com";
-        password = "kochamcie";
-    }
-
-    public void sendEmail(String to, String subject, String body) {
-        Properties props = new Properties();
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", port);
-
-        switch (protocol) {
-            case SMTPS:
-//                props.put("mail.smtp.sll.enable", true);
-                props.put("mail.smtp.socketFactory.port", "465");
-                props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-                break;
-            case TLS:
-                props.put("mail.smtp.starttls.enable", true);
-                break;
-        }
-
-        Authenticator authenticator = null;
-        if (auth) {
-            props.put("mail.smtop.auth", true);
-            authenticator = new Authenticator() {
-                private PasswordAuthentication pa = new PasswordAuthentication(username, password);
-
-                @Override
-                public PasswordAuthentication getPasswordAuthentication() {
-                    return pa;
-                }
-            };
-        }
-        Session session = Session.getInstance(props, authenticator);
-        session.setDebug(debug);
-
-        MimeMessage message = new MimeMessage(session);
-
-        try {
-            message.setFrom(new InternetAddress(from));
-            InternetAddress[] adresses = {new InternetAddress(to)};
-            message.setRecipients(Message.RecipientType.TO, adresses);
-            message.setSubject(subject);
-            message.setSentDate(new Date());
-            message.setText(body);
-            Transport.send(message);
-        } catch (MessagingException ex) {
-            ex.printStackTrace();
-        }
-
-    }
+//
+//    public EmailSessionBean() throws IOException
+//    {
+//        PropertyValues pv = new PropertyValues();
+//        Map<String, String> properties = pv.getPropValues();
+////        username = properties.get("emailUser");
+////        password = properties.get("emailPassword");
+//        username = "silwestpl@gmail.com";
+//        password = "kochamcie";
+//    }
+//
+//    public void sendEmail(String to, String subject, String body) {
+//        Properties props = new Properties();
+//        props.put("mail.smtp.host", host);
+//        props.put("mail.smtp.port", port);
+//
+//        switch (protocol) {
+//            case SMTPS:
+////                props.put("mail.smtp.sll.enable", true);
+//                props.put("mail.smtp.socketFactory.port", "465");
+//                props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+//                break;
+//            case TLS:
+//                props.put("mail.smtp.starttls.enable", true);
+//                break;
+//        }
+//
+//        Authenticator authenticator = null;
+//        if (auth) {
+//            props.put("mail.smtop.auth", true);
+//            authenticator = new Authenticator() {
+//                private PasswordAuthentication pa = new PasswordAuthentication(username, password);
+//
+//                @Override
+//                public PasswordAuthentication getPasswordAuthentication() {
+//                    return pa;
+//                }
+//            };
+//        }
+//        Session session = Session.getInstance(props, authenticator);
+//        session.setDebug(debug);
+//
+//        MimeMessage message = new MimeMessage(session);
+//
+//        try {
+//            message.setFrom(new InternetAddress(from));
+//            InternetAddress[] adresses = {new InternetAddress(to)};
+//            message.setRecipients(Message.RecipientType.TO, adresses);
+//            message.setSubject(subject);
+//            message.setSentDate(new Date());
+//            message.setText(body);
+//            Transport.send(message);
+//        } catch (MessagingException ex) {
+//            ex.printStackTrace();
+//        }
+//
+//    }
 
     public int getPort() {
         return port;

@@ -5,7 +5,6 @@
  */
 package pl.gw.model;
 
-import com.sun.xml.internal.messaging.saaj.util.Base64;
 import com.sun.xml.wss.impl.callback.PasswordValidationCallback.PasswordValidationException;
 import java.io.IOException;
 import java.io.Serializable;
@@ -30,7 +29,6 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import org.apache.commons.codec.digest.DigestUtils;
 import pl.gw.model.usermanagement.Group;
-import pl.gw.smtp.EmailSessionBean;
 
 /**
  *
@@ -76,17 +74,21 @@ public class User implements Serializable {
     @Column(nullable = false, length = 128)
     private String verficationKey;
 
+    @Column(nullable = true, length = 64)
+    private String theme = "bootstrap";
+
     public User() {
     }
 
     @PrePersist
-    public void passwordValidate() throws PasswordValidationException {
+    public void init() throws PasswordValidationException {
         if (this.getPassword() == null || this.getPasswordConfirmation().length() == 0
                 || !this.getPasswordConfirmation().equals(this.getPassword())) {
             throw new PasswordValidationException("Hasla sie nie zgadzaja!");
         }
         String decryptedPassword = DigestUtils.sha512Hex(this.getPassword());
         String key = DigestUtils.sha256Hex(this.getEmail() + "." + this.getPassword());
+        
         this.setVerficationKey(key);
         this.setPassword(decryptedPassword);
     }
@@ -161,6 +163,14 @@ public class User implements Serializable {
 
     public void setVerficationKey(String verficationKey) {
         this.verficationKey = verficationKey;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 
     @Override

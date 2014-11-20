@@ -27,7 +27,7 @@ public class ValidateEmailAdress implements Validator {
             InternetAddress emailAddres = new InternetAddress(componentValue);
             emailAddres.validate();
         } catch (AddressException exception) {
-            FacesMessage facesMesage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Zly email", "Zly email");
+            FacesMessage facesMesage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Podaj poprawny email.", "Podaj poprawny email.");
             throw new ValidatorException(facesMesage);
         }
     }
