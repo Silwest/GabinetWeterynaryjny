@@ -10,7 +10,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import pl.gw.domain.Theme;
 import pl.gw.service.ThemeService;
-import pl.gw.service.usermanagement.UserController;
 import pl.gw.utility.UserMethods;
 
 /**

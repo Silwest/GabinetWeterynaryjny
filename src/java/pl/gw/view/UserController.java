@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.gw.service.usermanagement;
+package pl.gw.view;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -44,6 +44,7 @@ public class UserController implements Serializable {
         user.setRegisteredOn(new Date());
         try {
             userBean.save(user);
+            UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Konto zostalo stworzone.", "Konto zostalo stworzone.");
         } catch (RuntimeException exception) {
             facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Problem ze stworzeniem konta" + exception.getMessage(), exception.getMessage()));

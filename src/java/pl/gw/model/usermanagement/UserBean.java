@@ -19,23 +19,23 @@ import pl.gw.model.User;
  */
 @Stateless
 public class UserBean {
-    
+
     @PersistenceContext(unitName = "GabinetWeterynaryjnyPU")
     private EntityManager em;
-    
+
     public List<User> findAll() {
         TypedQuery<User> query = em.createQuery("SELECT u FROM User ORDER BY u.registeredOn ASC", User.class);
         return query.getResultList();
     }
-    
+
     public void save(User user) {
         em.persist(user);
     }
-    
+
     public void update(User user) {
         em.merge(user);
     }
-    
+
     public void remove(String email) {
         User user = this.find(email);
         if (user != null) {
@@ -56,5 +56,13 @@ public class UserBean {
     public void detach(User user) {
         em.detach(user);
     }
-    
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
 }
