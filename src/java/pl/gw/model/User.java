@@ -5,11 +5,11 @@
  */
 package pl.gw.model;
 
-import com.sun.xml.wss.impl.callback.PasswordValidationCallback.PasswordValidationException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.validator.ValidatorException;
 import javax.persistence.Cacheable;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -20,7 +20,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
-import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -41,7 +40,7 @@ import pl.gw.model.usermanagement.Group;
 public class User implements Serializable {
 
     public static final String FIND_BY_EMAIL = "User.findUserByEmail";
-
+    
     @Id
     @Column(unique = true, nullable = false, length = 128)
     private String email;
@@ -81,26 +80,19 @@ public class User implements Serializable {
     }
 
     @PrePersist
-    public void init() throws PasswordValidationException {
+    public void init() {
         if (this.getPassword() == null || this.getPasswordConfirmation().length() == 0
                 || !this.getPasswordConfirmation().equals(this.getPassword())) {
-            throw new PasswordValidationException("Hasla sie nie zgadzaja!");
+            FacesMessage facesMesage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hasla sie nie zgadzaja.", "Hasla sie nie zgadzaja.");
+            throw new ValidatorException(facesMesage);
         }
         String decryptedPassword = DigestUtils.sha512Hex(this.getPassword());
         String key = DigestUtils.sha256Hex(this.getEmail() + "." + this.getPassword());
         
         this.setVerficationKey(key);
         this.setPassword(decryptedPassword);
+        this.setPasswordConfirmation(decryptedPassword);
     }
-
-    // Wysylka key aktywacyjnego na email podany przy tworzeniu konta
-    @PostPersist
-    public void activationEmail() throws IOException {
-//        EmailSessionBean esb = new EmailSessionBean();
-//        esb.sendEmail("silwestpl@gmail.com", "subject", "body");
-
-    }
-
     public String getEmail() {
         return email;
     }
@@ -180,5 +172,4 @@ public class User implements Serializable {
                 + ", registeredOn=" + this.registeredOn + ", groups"
                 + this.groups + "]";
     }
-
 }

@@ -15,8 +15,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import pl.gw.model.User;
+import pl.gw.model.usermanagement.EmailSessionBean;
 import pl.gw.model.usermanagement.Group;
 import pl.gw.model.usermanagement.UserBean;
 import pl.gw.utility.UserMethods;
@@ -31,6 +33,9 @@ public class UserController implements Serializable {
 
     @EJB
     private UserBean userBean;
+    @Inject
+    private EmailSessionBean esb;
+    
     private User user = new User();
 
     private FacesContext facesContext = null;
@@ -44,10 +49,12 @@ public class UserController implements Serializable {
         user.setRegisteredOn(new Date());
         try {
             userBean.save(user);
-            UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Konto zostalo stworzone.", "Konto zostalo stworzone.");
-        } catch (RuntimeException exception) {
+            esb.sendEmail(user.getEmail(), "[Gabinet Weterynaryjny]", "Kliknij w wiadomosc " + user.getVerficationKey());
             facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Problem ze stworzeniem konta" + exception.getMessage(), exception.getMessage()));
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Konto zostalo stworzone.", "Konto zostalo stworzone."));
+        } catch (RuntimeException exception) {
+            exception.getStackTrace();
+            System.out.println("Blad UserController!!! \n\n\n");
         }
 
         return "HOME";
