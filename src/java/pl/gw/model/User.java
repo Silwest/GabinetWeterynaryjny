@@ -19,6 +19,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -36,11 +37,18 @@ import pl.gw.model.usermanagement.Group;
 @Entity
 @Table(name = "USERS")
 @Cacheable(false)
-@NamedQuery(name = "User.findUserByEmail", query = "SELECT u from User u where u.email = :email")
+@NamedQueries({
+    @NamedQuery(name = "User.findUserByEmail",
+            query = "SELECT u from User u where u.email = :email"),
+    @NamedQuery(name = "User.findUserByVerKey",
+            query = "SELECT u from User u where u.verificationKey = :verificationKey")
+})
+
 public class User implements Serializable {
 
     public static final String FIND_BY_EMAIL = "User.findUserByEmail";
-    
+    public static final String FIND_BY_VER_KEY = "User.findUserByVerKey";
+
     @Id
     @Column(unique = true, nullable = false, length = 128)
     private String email;
@@ -70,11 +78,14 @@ public class User implements Serializable {
     @Column(name = "groupname", length = 64, nullable = false)
     private List<Group> groups;
 
-    @Column(nullable = false, length = 128)
-    private String verficationKey;
+    @Column(nullable = true, length = 128)
+    private String verificationKey;
 
     @Column(nullable = true, length = 64)
     private String theme = "bootstrap";
+
+    @Column()
+    private boolean activated = false;
 
     public User() {
     }
@@ -88,11 +99,12 @@ public class User implements Serializable {
         }
         String decryptedPassword = DigestUtils.sha512Hex(this.getPassword());
         String key = DigestUtils.sha256Hex(this.getEmail() + "." + this.getPassword());
-        
-        this.setVerficationKey(key);
+
+        this.setVerificationKey(key);
         this.setPassword(decryptedPassword);
         this.setPasswordConfirmation(decryptedPassword);
     }
+
     public String getEmail() {
         return email;
     }
@@ -149,12 +161,12 @@ public class User implements Serializable {
         this.passwordConfirmation = passwordConfirmation;
     }
 
-    public String getVerficationKey() {
-        return verficationKey;
+    public String getVerificationKey() {
+        return verificationKey;
     }
 
-    public void setVerficationKey(String verficationKey) {
-        this.verficationKey = verficationKey;
+    public void setVerificationKey(String verficationKey) {
+        this.verificationKey = verficationKey;
     }
 
     public String getTheme() {
@@ -163,6 +175,14 @@ public class User implements Serializable {
 
     public void setTheme(String theme) {
         this.theme = theme;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 
     @Override

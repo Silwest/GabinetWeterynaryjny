@@ -42,14 +42,15 @@ public class UserController implements Serializable {
 
     public String doCreateUser() {
         List<Group> groups = new ArrayList<>();
-
+        // TODO: Zmienic grupe przyznawana z defaultu
         groups.add(Group.ADMINISTRATOR);
 
         user.setGroups(groups);
         user.setRegisteredOn(new Date());
         try {
             userBean.save(user);
-            esb.sendEmail(user.getEmail(), "[Gabinet Weterynaryjny]", "Kliknij w wiadomosc " + user.getVerficationKey());
+            // TODO: zmiana localhosta na serwer
+            esb.sendEmail(user.getEmail(), "[Gabinet Weterynaryjny]", "Kliknij w wiadomosc localhost:8080/public/accountActivation.xhtml?key=" + user.getVerificationKey());
             facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Konto zostalo stworzone.", "Konto zostalo stworzone."));
         } catch (RuntimeException exception) {

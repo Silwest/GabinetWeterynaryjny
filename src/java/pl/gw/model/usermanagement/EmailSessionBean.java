@@ -38,7 +38,7 @@ public class EmailSessionBean implements Serializable {
     public EmailSessionBean() {
 
     }
-
+    // TODO: Stworzyc metode ktora wysyla wiadomosc jako HTML
     public void sendEmail(String to, String subject, String body) {
         PropertyValues pv = new PropertyValues();
         Map<String, String> properties = pv.getPropValues();

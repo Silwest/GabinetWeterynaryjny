@@ -52,6 +52,17 @@ public class UserBean {
         return em.find(User.class, email);
     }
 
+    public User findByVerKey(String verificationKey) {
+        TypedQuery<User> query = em.createNamedQuery(User.FIND_BY_VER_KEY, User.class);
+        query.setParameter("verificationKey", verificationKey);
+        List<User> usersList = query.getResultList();
+        if(usersList.size() == 0){
+            return null;
+        }
+        return usersList.get(0);
+        
+    }
+
     public void detach(User user) {
         em.detach(user);
     }

@@ -8,13 +8,13 @@
     <h:head>
         <title><ui:insert name="title">Gabinet Weterynaryjny</ui:insert></title>
         <h:outputStylesheet name="css/base.css" />
+        <ui:insert name="head"></ui:insert>
     </h:head>
     <h:body>
         <p:layout fullPage="true">
             <p:layoutUnit position="west" size="245" resizable="true" closable="true" collapsible="true">
                 <div id="head_menu">
                     <h:form>
-                        <p:growl autoUpdate="true" />
                         <p:menu>
                             <p:menuitem value="Home" icon="ui-icon-home" action="HOME" />
                             <p:menuitem value="Terminarz" icon="ui-icon-calendar" />
@@ -26,7 +26,6 @@
             </p:layoutUnit>
             <p:layoutUnit position="north" closable="true" collapsible="true" size="80">
                 <h:form>  
-                    <p:growl id="messages"/>
                     <p:menubar>
                         <p:submenu label="File" icon="ui-icon-document">
                         </p:submenu>
