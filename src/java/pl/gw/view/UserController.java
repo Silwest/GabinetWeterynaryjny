@@ -18,9 +18,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import pl.gw.model.User;
-import pl.gw.model.usermanagement.EmailSessionBean;
-import pl.gw.model.usermanagement.Group;
-import pl.gw.model.usermanagement.UserBean;
+import pl.gw.model.management.EmailSessionBean;
+import pl.gw.model.Group;
+import pl.gw.model.management.UserBean;
 import pl.gw.utility.UserMethods;
 
 /**

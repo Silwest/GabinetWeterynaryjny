@@ -18,6 +18,7 @@
                         <p:menu>
                             <p:menuitem value="Home" icon="ui-icon-home" action="HOME" />
                             <p:menuitem value="Terminarz" icon="ui-icon-calendar" />
+                            <p:menuitem value="Magazyn" icon="ui-icon-gear" action="STORE_HOUSE" />
                             <p:menuitem value="Opcje" icon="ui-icon-gear" action="USER_OPTIONS" />
                             <p:menuitem value="Admin" icon="ui-icon-arrowreturnthick-1-e" action="ADMIN" />
                         </p:menu>
@@ -41,8 +42,9 @@
 
                         <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
                         <f:facet name="options">
-                            <p:outputLabel value="#{request.remoteUser}" rendered="#{request.userPrincipal != null}" /> 
-                            <p:commandButton value="Wyloguj" icon="ui-icon-extlink"  action="#{userController.logout()}" rendered="#{request.userPrincipal != null}" />
+                            <p:outputLabel value="#{request.remoteUser}" style="margin-right: 5 px;" rendered="#{request.userPrincipal != null}" /> 
+                            <p:commandButton value="Wyloguj" icon="ui-icon-extlink" action="#{userController.logout()}" rendered="#{request.userPrincipal != null}" />
+                            <p:commandButton value="Zaloguj" icon="ui-icon-extlink" action="LOGIN" rendered="#{request.userPrincipal == null}" />
                         </f:facet>
                     </p:menubar>
                 </h:form>

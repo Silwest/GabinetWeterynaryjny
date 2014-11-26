@@ -28,7 +28,6 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import org.apache.commons.codec.digest.DigestUtils;
-import pl.gw.model.usermanagement.Group;
 
 /**
  *
