@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import pl.gw.model.Supply;
-import pl.gw.model.SupplyType;
+import pl.gw.domain.SupplyType;
 import pl.gw.model.management.SupplyBean;
 
 /**

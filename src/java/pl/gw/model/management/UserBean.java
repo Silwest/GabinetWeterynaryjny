@@ -23,7 +23,7 @@ public class UserBean {
     private EntityManager em;
 
     public List<User> findAll() {
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User u ORDER BY u.registeredOn ASC", User.class);
+        TypedQuery<User> query = em.createNamedQuery(User.FIND_ALL, User.class);
         return query.getResultList();
     }
 

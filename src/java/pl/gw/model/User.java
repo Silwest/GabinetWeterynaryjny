@@ -5,6 +5,7 @@
  */
 package pl.gw.model;
 
+import pl.gw.domain.Group;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -37,14 +38,14 @@ import org.apache.commons.codec.digest.DigestUtils;
 @Table(name = "USERS")
 @Cacheable(false)
 @NamedQueries({
-    @NamedQuery(name = "User.findUserByEmail",
-            query = "SELECT u from User u where u.email = :email"),
-    @NamedQuery(name = "User.findUserByVerKey",
-            query = "SELECT u from User u where u.verificationKey = :verificationKey")
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u ORDER BY u.registeredOn ASC"),
+    @NamedQuery(name = "User.findUserByEmail", query = "SELECT u from User u where u.email = :email"),
+    @NamedQuery(name = "User.findUserByVerKey", query = "SELECT u from User u where u.verificationKey = :verificationKey")
 })
 
 public class User implements Serializable {
 
+    public static final String FIND_ALL = "User.findAll";
     public static final String FIND_BY_EMAIL = "User.findUserByEmail";
     public static final String FIND_BY_VER_KEY = "User.findUserByVerKey";
 

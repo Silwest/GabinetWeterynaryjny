@@ -3,6 +3,7 @@
  */
 package pl.gw.model;
 
+import pl.gw.domain.SupplyType;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;

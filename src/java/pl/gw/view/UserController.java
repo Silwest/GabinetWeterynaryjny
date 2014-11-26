@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import pl.gw.model.User;
 import pl.gw.model.management.EmailSessionBean;
-import pl.gw.model.Group;
+import pl.gw.domain.Group;
 import pl.gw.model.management.UserBean;
 import pl.gw.utility.UserMethods;
 

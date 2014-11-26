@@ -1,7 +1,7 @@
 /*
  *  Gabinet Weterynaryjny - projekt zaliczeniowy
  */
-package pl.gw.model;
+package pl.gw.domain;
 
 /**
  *
