@@ -29,19 +29,8 @@
                 <h:form>  
                     <p:menubar>
                         <p:menuitem value="Dodaj gabinet" icon="ui-icon-document" action="ADD_VET_OFFICE" />
-                        <p:submenu label="Dodaj Gabinet" icon="ui-icon-document" >
-                        </p:submenu>
+                        <p:menuitem value="Dodaj lek" icon="ui-icon-document" action="STORE_HOUSE_ADD_SUPPLY" />
 
-                        <p:submenu label="Edit" icon="ui-icon-pencil">
-                        </p:submenu>
-
-                        <p:submenu label="Help" icon="ui-icon-help">
-                        </p:submenu>
-
-                        <p:submenu label="Actions" icon="ui-icon-gear">
-                        </p:submenu>
-
-                        <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
                         <f:facet name="options">
                             <p:outputLabel value="#{request.remoteUser}" style="margin-right: 5 px;" rendered="#{request.userPrincipal != null}" /> 
                             <p:commandButton value="Wyloguj" icon="ui-icon-extlink" action="#{userController.logout()}" rendered="#{request.userPrincipal != null}" />

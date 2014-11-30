@@ -38,7 +38,7 @@
         <navigation-case>
             <!--<from-action>HOME</from-action>-->
             <from-outcome>STORE_HOUSE</from-outcome>
-            <to-view-id>/user/storeHouse/addSupply.xhtml</to-view-id>
+            <to-view-id>/user/storeHouse/storeHouse.xhtml</to-view-id>
             <redirect />
         </navigation-case>
         <navigation-case>

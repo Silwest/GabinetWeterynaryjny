@@ -37,6 +37,9 @@ public class SupplyBean {
         }
         return supplyList.get(0);
     }
+    public Supply findById(Integer supplyId){
+        return em.find(Supply.class, supplyId);
+    }
 
     public void remove(String supplyName) {
         Supply supply = this.find(supplyName);

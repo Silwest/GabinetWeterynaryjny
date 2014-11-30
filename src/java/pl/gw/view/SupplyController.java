@@ -6,6 +6,7 @@ package pl.gw.view;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import pl.gw.model.Supply;
 import pl.gw.domain.SupplyType;
@@ -16,6 +17,7 @@ import pl.gw.model.management.SupplyBean;
  * @author Silwest
  */
 @ManagedBean
+@ApplicationScoped
 public class SupplyController {
 
     @EJB
@@ -71,5 +73,13 @@ public class SupplyController {
 
     public void setSupplyList(List<Supply> supplyList) {
         this.supplyList = supplyList;
+    }
+
+    public List<Supply> findAll() {
+        return supplyBean.findAll();
+    }
+
+    public Supply findById(int value) {
+        return supplyBean.findById(value);
     }
 }

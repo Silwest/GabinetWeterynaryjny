@@ -22,8 +22,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Supply.findAll", query = "SELECT s FROM Supply s ORDER BY s.id ASC"),
-    @NamedQuery(name = "Supply.findSupplyByName", query = "SELECT s FROM Supply s WHERE s.name = :supplyName"),
-})
+    @NamedQuery(name = "Supply.findSupplyByName", query = "SELECT s FROM Supply s WHERE s.name = :supplyName"),})
 public class Supply implements Serializable {
 
     public static final String FIND_ALL = "Supply.findAll";
@@ -41,11 +40,11 @@ public class Supply implements Serializable {
 
     @Column
     private Double price;
-    
+
     @Enumerated(EnumType.STRING)
     @NotNull
     private SupplyType supplyType;
-    
+
     public String getName() {
         return name;
     }
@@ -84,6 +83,15 @@ public class Supply implements Serializable {
 
     public void setSupplyType(SupplyType supplyType) {
         this.supplyType = supplyType;
+    }
+
+    @Override
+    public String toString() {
+        return "SUPPLY: id = " + this.getId()
+                + ", name = " + this.getName()
+                + ", description = " + this.getDescription()
+                + ", price = " + this.getPrice()
+                + ", supplyType = " + this.getSupplyType();
     }
 
 }

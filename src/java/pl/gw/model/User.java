@@ -22,6 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -42,7 +43,6 @@ import org.apache.commons.codec.digest.DigestUtils;
     @NamedQuery(name = "User.findUserByEmail", query = "SELECT u from User u where u.email = :email"),
     @NamedQuery(name = "User.findUserByVerKey", query = "SELECT u from User u where u.verificationKey = :verificationKey")
 })
-
 public class User implements Serializable {
 
     public static final String FIND_ALL = "User.findAll";
@@ -84,8 +84,10 @@ public class User implements Serializable {
     @Column(nullable = true, length = 64)
     private String theme = "bootstrap";
 
-    @Column()
     private boolean activated = false;
+
+    @OneToOne
+    private VeterinaryOffice vetOffice;
 
     public User() {
     }
@@ -183,6 +185,14 @@ public class User implements Serializable {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    public VeterinaryOffice getVetOffice() {
+        return vetOffice;
+    }
+
+    public void setVetOffice(VeterinaryOffice vetOffice) {
+        this.vetOffice = vetOffice;
     }
 
     @Override

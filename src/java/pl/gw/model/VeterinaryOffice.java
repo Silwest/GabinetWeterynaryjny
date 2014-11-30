@@ -36,7 +36,7 @@ public class VeterinaryOffice implements Serializable {
 
     @Column(length = 6)
     private String zipCode;
-
+    
     public Integer getId() {
         return id;
     }
@@ -68,5 +68,5 @@ public class VeterinaryOffice implements Serializable {
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
-
+    
 }
