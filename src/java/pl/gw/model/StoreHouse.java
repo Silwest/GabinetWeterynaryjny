@@ -79,10 +79,7 @@ public class StoreHouse implements Serializable {
 
     @Override
     public String toString() {
-        return "Id = " + this.getId()
-                + ", supply = " + this.getSupply()
-                + ", amount = " + this.getAmount()
-                + ", vetofficce = " + this.getVetOffice();
+        return "StoreHouse{" + "id=" + id + ", supply=" + supply + ", amount=" + amount + ", vetOffice=" + vetOffice + '}';
     }
-
+    
 }

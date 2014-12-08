@@ -5,6 +5,7 @@ package pl.gw.model;
 
 import pl.gw.domain.SupplyType;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -87,11 +88,33 @@ public class Supply implements Serializable {
 
     @Override
     public String toString() {
-        return "SUPPLY: id = " + this.getId()
-                + ", name = " + this.getName()
-                + ", description = " + this.getDescription()
-                + ", price = " + this.getPrice()
-                + ", supplyType = " + this.getSupplyType();
+        return "Supply{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", supplyType=" + supplyType + '}';
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Supply other = (Supply) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (this.supplyType != other.supplyType) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -27,7 +27,9 @@ public class VeterinaryOfficeBean {
     public void update(VeterinaryOffice vetOffice) {
         em.merge(vetOffice);
     }
-
+    public VeterinaryOffice find(Integer vetOfficeId){
+        return em.find(VeterinaryOffice.class, vetOfficeId);
+    }
     public VeterinaryOffice find(String vetOfficeName) {
         TypedQuery<VeterinaryOffice> query = em.createNamedQuery(VeterinaryOffice.FIND_BY_NAME, VeterinaryOffice.class);
         query.setParameter("vetOfficeName", vetOfficeName);

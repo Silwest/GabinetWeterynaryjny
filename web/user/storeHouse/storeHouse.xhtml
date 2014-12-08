@@ -4,6 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
@@ -15,21 +16,65 @@
             </ui:define>
 
             <ui:define name="content">
-                <h:form>
+                <h:form id="form">
                     <p:messages autoUpdate="true" />
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="6">
                         <h:outputLabel value="Nazwa" />
-                        <p:selectOneListbox id="supplies" value="#{storeHouseController.storeHouse.supply}" converter="supplyConverter" var="s" filter="true" label="Select Box">
+                        <p:selectOneListbox id="supplies" value="#{storeHouseController.storeHouse.supply}" converter="supplyConverter" var="s" 
+                                            filter="true" label="Select Supply" required="true">
                             <f:selectItems value="#{storeHouseController.allSupplies}" var="supply" itemLabel="#{supply.name}" itemValue="#{supply}"/>
                             <p:column>
                                 <h:outputText value="#{s.name}" />
                             </p:column>
                         </p:selectOneListbox>
-                        <p:commandButton action="#{storeHouseController.check}" type="submit" value="submit" />
+                        <h:outputLabel value="Ilosc:">
+                            <pe:inputNumber value="#{storeHouseController.storeHouse.amount}" required="true" label="Ilosc" decimalPlaces="0">
+                                <f:validateDoubleRange minimum="1" maximum="10000" />
+                            </pe:inputNumber>
+                        </h:outputLabel>
+                        <p:selectOneListbox id="vetOffice" value="#{storeHouseController.storeHouse.vetOffice}" converter="vetOfficeConverter" var="v" filter="true" required="true" label="Weterynaria">
+                            <f:selectItems value="#{storeHouseController.allVetOffices}" var="vetOffice" itemLabel="#{vetOffice.name}" itemValue="#{vetOffice}"/>
+                            <p:column>
+                                <h:outputText value="#{v.name}" />
+                            </p:column>
+                        </p:selectOneListbox>
+
+                        <p:commandButton action="#{storeHouseController.addStoreHouse}" type="submit" value="submit" />
                     </h:panelGrid>
+                </h:form>
+                <h:form id="storeHouseTableForm">
+                    <p:dataTable id="storeHouseTable" var="storeHouse" value="#{storeHouseController.allStoreHouse}" resizableColumns="true" liveResize="true" draggableColumns="true"
+                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5 10 15" sortMode="multiple" emptyMessage="Brak wynikow spelniajacych podane kryteria" 
+                                 filteredValue="#{storeHouseController.filteredStoreHouse}" widgetVar="supplyTable"
+                                 >
+                        <f:facet name="header">
+                            Leki/Gadzety/Akcesoria
+                            <h:outputText value="Szukaj:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('supplyTable').filter()" placeholder="Filter" />
+                            <p:commandButton id="toggler" type="button" value="Kolumny" style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="storeHouseTable" trigger="toggler" />
+                        </f:facet>
+                        <p:column headerText="id" id="id" sortBy="#{storeHouse.id}" filterBy="#{storeHouse.id}" filterMatchMode="startsWith">
+                            <h:outputText value="#{storeHouse.id}" />
+                        </p:column>
+                        <p:column headerText="Nazwa" id="name" sortBy="#{storeHouse.supply.name}" filterBy="#{storeHouse.supply.name}" filterMatchMode="contains">
+                            <h:outputText value="#{storeHouse.supply.name}" />
+                        </p:column>
+                        <p:column headerText="Ilosc" id="amount" sortBy="#{storeHouse.amount}" filterBy="#{storeHouse.amount}" filterMatchMode="lte">
+                            <f:facet name="filter">
+                                <p:spinner onchange="PF('storeHouse').filter()" styleClass="year-spinner">
+                                    <f:converter converterId="javax.faces.Integer" />
+                                </p:spinner>
+                            </f:facet>
+                            <h:outputText value="#{storeHouse.amount}" />
+                        </p:column>
+                        <p:column headerText="Placowka" id="vetOffice" sortBy="#{storeHouse.vetOffice.name}" filterBy="#{storeHouse.vetOffice.name}" filterMatchMode="startsWith">
+                            <h:outputText value="#{storeHouse.vetOffice.name}" />
+                        </p:column>
+                    </p:dataTable>
                 </h:form>
             </ui:define>
         </ui:composition>
-
     </body>
 </html>

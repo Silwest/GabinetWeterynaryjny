@@ -7,34 +7,54 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import pl.gw.model.StoreHouse;
 import pl.gw.model.Supply;
+import pl.gw.model.VeterinaryOffice;
 import pl.gw.model.management.StoreHouseBean;
+import pl.gw.model.management.SupplyBean;
+import pl.gw.model.management.VeterinaryOfficeBean;
 
 /**
  *
  * @author Silwest
  */
 @ManagedBean
+@ViewScoped
 public class StoreHouseController implements Serializable {
 
     @Inject
     private StoreHouseBean storeHouseBean;
-
-    @ManagedProperty("#{supplyController}")
-    private SupplyController supplyController;
+    @Inject
+    private VeterinaryOfficeBean vetOfficeBean;
+    @Inject
+    private SupplyBean supplyBean;
 
     private StoreHouse storeHouse = new StoreHouse();
     private List<Supply> allSupplies;
+    private List<StoreHouse> allStoreHouse;
+    private List<VeterinaryOffice> allVetOffices;
+    private List<StoreHouse> filteredStoreHouse;
+
+    public StoreHouseController() {
+    }
 
     @PostConstruct
     public void init() {
-        allSupplies = supplyController.findAll();
+        allVetOffices = vetOfficeBean.findAll();
+        allSupplies = supplyBean.findAll();
+        allStoreHouse = storeHouseBean.findAll();
+    }
+
+    public String addStoreHouse() {
+        System.out.println("ADDSTOREHOUSE: " + storeHouse.toString());
+        storeHouseBean.save(storeHouse);
+        return "STORE_HOUSE";
     }
 
     public void check() {
+        System.out.println("KRUWAAAAAAAAAAAAAAAAAAAAAAAAA");
         System.out.println("storeHousetheme" + storeHouse.toString());
     }
 
@@ -62,11 +82,44 @@ public class StoreHouseController implements Serializable {
         this.allSupplies = allSupplies;
     }
 
-    public SupplyController getSupplyController() {
-        return supplyController;
+    public VeterinaryOfficeBean getVetOfficeBean() {
+        return vetOfficeBean;
     }
 
-    public void setSupplyController(SupplyController supplyController) {
-        this.supplyController = supplyController;
+    public void setVetOfficeBean(VeterinaryOfficeBean vetOfficeBean) {
+        this.vetOfficeBean = vetOfficeBean;
     }
+
+    public List<VeterinaryOffice> getAllVetOffices() {
+        return allVetOffices;
+    }
+
+    public void setAllVetOffices(List<VeterinaryOffice> allVetOffices) {
+        this.allVetOffices = allVetOffices;
+    }
+
+    public SupplyBean getSupplyBean() {
+        return supplyBean;
+    }
+
+    public void setSupplyBean(SupplyBean supplyBean) {
+        this.supplyBean = supplyBean;
+    }
+
+    public List<StoreHouse> getAllStoreHouse() {
+        return allStoreHouse;
+    }
+
+    public void setAllStoreHouse(List<StoreHouse> allStoreHouse) {
+        this.allStoreHouse = allStoreHouse;
+    }
+
+    public List<StoreHouse> getFilteredStoreHouse() {
+        return filteredStoreHouse;
+    }
+
+    public void setFilteredStoreHouse(List<StoreHouse> filteredStoreHouse) {
+        this.filteredStoreHouse = filteredStoreHouse;
+    }
+
 }
