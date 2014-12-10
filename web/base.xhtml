@@ -9,6 +9,7 @@
         <title><ui:insert name="title">Gabinet Weterynaryjny</ui:insert></title>
         <h:outputStylesheet name="css/base.css" />
         <ui:insert name="head"></ui:insert>
+        <ui:insert name="scritp"></ui:insert>
     </h:head>
     <h:body>
         <p:layout fullPage="true">
@@ -17,7 +18,7 @@
                     <h:form>
                         <p:menu style="width: 152px;">
                             <p:menuitem value="Home" icon="ui-icon-home" action="HOME" />
-                            <p:menuitem value="Terminarz" icon="ui-icon-calendar" />
+                            <p:menuitem value="Terminarz" icon="ui-icon-calendar" action="SCHEDULER" />
                             <p:menuitem value="Magazyn" icon="ui-icon-folder-collapsed" action="STORE_HOUSE" />
                             <p:menuitem value="Opcje" icon="ui-icon-gear" action="USER_OPTIONS" />
                             <p:menuitem value="Admin" icon="ui-icon-arrowreturnthick-1-e" action="ADMIN" />
