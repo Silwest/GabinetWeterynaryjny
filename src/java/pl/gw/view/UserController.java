@@ -18,9 +18,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import pl.gw.model.User;
-import pl.gw.model.usermanagement.EmailSessionBean;
-import pl.gw.model.usermanagement.Group;
-import pl.gw.model.usermanagement.UserBean;
+import pl.gw.model.management.EmailSessionBean;
+import pl.gw.domain.Group;
+import pl.gw.model.management.UserBean;
 import pl.gw.utility.UserMethods;
 
 /**
@@ -35,7 +35,7 @@ public class UserController implements Serializable {
     private UserBean userBean;
     @Inject
     private EmailSessionBean esb;
-    
+
     private User user = new User();
 
     private FacesContext facesContext = null;
@@ -55,7 +55,6 @@ public class UserController implements Serializable {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Konto zostalo stworzone.", "Konto zostalo stworzone."));
         } catch (RuntimeException exception) {
             exception.getStackTrace();
-            System.out.println("Blad UserController!!! \n\n\n");
         }
 
         return "HOME";
@@ -65,10 +64,21 @@ public class UserController implements Serializable {
         user = userBean.find(userEmail);
         user.setTheme(theme);
         userBean.update(user);
+        UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Motyw został zmieniony!", "Motyw został zmieniony!");
+    }
+
+    public String logout() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+        if (request.getSession(false) != null) {
+            request.getSession(false).invalidate();
+        }
+        UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Zostales wylogowany.", "Zostales wylogowany.");
+        return "HOME";
     }
 
     public UserController() {
-
     }
 
     public UserBean getUserBean() {
@@ -89,19 +99,10 @@ public class UserController implements Serializable {
 
     public String getTheme(String userEmail) {
         if (userEmail == null) {
+            // @TODO ustawienie bazowego templatu
             return "bootstrap";
         }
         user = userBean.find(userEmail);
         return user.getTheme();
-    }
-    public String logout() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext ec = context.getExternalContext();
-        HttpServletRequest request = (HttpServletRequest) ec.getRequest();
-        if (request.getSession(false) != null) {
-            request.getSession(false).invalidate();
-        }
-        UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Zostales wylogowany.", "Zostales wylogowany.");
-        return "HOME";
     }
 }

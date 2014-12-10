@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import pl.gw.model.User;
-import pl.gw.model.usermanagement.UserBean;
+import pl.gw.model.management.UserBean;
 
 /**
  *

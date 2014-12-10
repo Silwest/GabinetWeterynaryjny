@@ -16,8 +16,8 @@ import javax.mail.internet.InternetAddress;
  *
  * @author Silwest
  */
-@FacesValidator(value = "validateEmailAdress")
-public class ValidateEmailAdress implements Validator {
+@FacesValidator(value = "emailAdressValidator")
+public class EmailAdressValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
