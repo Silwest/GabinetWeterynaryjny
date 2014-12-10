@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../base.xhtml">
+
+            <ui:define name="title">
+                Dodaj gabinet
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid columns="3" id="vetMatch">
+                        <h:outputLabel for="vetOfficeName" value="Nazwa gabinetu:" />
+                        <p:inputText id="vetOfficeName" label="Nazwa gabinetu" value="#{veterinaryOfficeController.vetOffice.name}" required="true" />
+                        <p:message for="vetOfficeName" />
+                        <h:outputLabel for="vetOfficeAdress" value="Adres gabinetu:" />
+                        <p:inputText id="vetOfficeAdress" label="Adres gabinetu" value="#{veterinaryOfficeController.vetOffice.adress}" required="true" />
+                        <p:message for="vetOfficeAdress" />
+                        <h:outputLabel for="vetOfficeZipCode" value="Kod pocztowy:" />
+                        <p:inputMask id="vetOfficeZipCode" label="Kod pocztowy" value="#{veterinaryOfficeController.vetOffice.zipCode}" mask="99-999" maxlength="5" required="true" />
+                        <p:message for="vetOfficeZipCode" />
+                        <p:commandButton type="submit" action="#{veterinaryOfficeController.addVetOffice}" value="Dodaj gabinet" update="vetMatch" />
+                    </h:panelGrid>
+                </h:form>
+                <p:dataTable var="vetOffice" value="#{veterinaryOfficeController.vetOfficeList}">
+                    <p:column headerText="id">
+                        <h:outputText value="#{vetOffice.id}" />
+                    </p:column>
+                    <p:column headerText="Nazwa">
+                        <h:outputText value="#{vetOffice.name}" />
+                    </p:column>
+                    <p:column headerText="Adres">
+                        <h:outputText value="#{vetOffice.adress}" />
+                    </p:column>
+                    <p:column headerText="Kod pocztowy">
+                        <h:outputText value="#{vetOffice.zipCode}" />
+                    </p:column>
+                </p:dataTable>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

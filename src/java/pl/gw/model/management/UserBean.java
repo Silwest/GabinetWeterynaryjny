@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.gw.model.usermanagement;
+package pl.gw.model.management;
 
 import java.util.List;
 import javax.ejb.Stateless;
@@ -23,7 +23,7 @@ public class UserBean {
     private EntityManager em;
 
     public List<User> findAll() {
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User ORDER BY u.registeredOn ASC", User.class);
+        TypedQuery<User> query = em.createNamedQuery(User.FIND_ALL, User.class);
         return query.getResultList();
     }
 
@@ -56,11 +56,11 @@ public class UserBean {
         TypedQuery<User> query = em.createNamedQuery(User.FIND_BY_VER_KEY, User.class);
         query.setParameter("verificationKey", verificationKey);
         List<User> usersList = query.getResultList();
-        if(usersList.size() == 0){
+        if (usersList.isEmpty()) {
             return null;
         }
         return usersList.get(0);
-        
+
     }
 
     public void detach(User user) {
