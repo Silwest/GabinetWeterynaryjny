@@ -11,14 +11,14 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import pl.gw.model.User;
-import pl.gw.model.management.UserBean;
+import pl.gw.model.usermanagement.UserBean;
 
 /**
  *
  * @author Silwest
  */
-@FacesValidator(value = "emailUniquenessValidator")
-public class EmailUniquenessValidator implements Validator {
+@FacesValidator(value = "validateEmailUniqueness")
+public class ValidateEmailUniqueness implements Validator {
 
     @Inject
     private UserBean userBean;

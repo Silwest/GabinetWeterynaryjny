@@ -10,8 +10,8 @@
                 <h:panelGrid columns="3" id="matchGrid">
                     <h:outputLabel for="email" value="Email: *" style="font-weight: bold" />
                     <p:inputText id="email" label="Email" value="#{userController.user.email}" required="true" 
-                                 validator="emailUniquenessValidator" title="Podaj email format: nazwa@host.pl">
-                        <f:validator validatorId="emailAdressValidator" for="email" />
+                                 validator="validateEmailUniqueness" title="Podaj email format: nazwa@host.pl">
+                        <f:validator validatorId="validateEmailAdress" for="email" />
                     </p:inputText>
                     <p:message for="email" />
 
@@ -20,7 +20,7 @@
                                 match="pwd2" required="true" feedback="true" 
                                 inline="true" promptLabel="Wpisz haslo" weakLabel="Slabe"
                                 goodLabel="Silne" strongLabel="Bardzo Silne" 
-                                validator="passwordComplexityValidator" title="Haslo musi zawierac minimum 8 znakow w tym 1 duza litere, 1 mala litere, 1 cyfre."/>
+                                validator="validatePasswordComplexity" title="Haslo musi zawierac minimum 8 znakow w tym 1 duza litere, 1 mala litere, 1 cyfre."/>
 
                     <p:message for="pwd1" />
 

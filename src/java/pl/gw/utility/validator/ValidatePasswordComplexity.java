@@ -16,8 +16,8 @@ import javax.faces.validator.ValidatorException;
  *
  * @author Silwest
  */
-@FacesValidator(value = "passwordComplexityValidator")
-public class PasswordComplexityValidator implements Validator {
+@FacesValidator(value = "validatePasswordComplexity")
+public class ValidatePasswordComplexity implements Validator {
 
     private Pattern pattern;
     private Matcher matcher;

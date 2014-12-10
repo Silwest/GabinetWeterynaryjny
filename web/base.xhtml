@@ -12,36 +12,43 @@
     </h:head>
     <h:body>
         <p:layout fullPage="true">
-            <p:layoutUnit position="west" size="180" resizable="true" closable="true" collapsible="true">
-                <div id="head_menu" >
+            <p:layoutUnit position="west" size="245" resizable="true" closable="true" collapsible="true">
+                <div id="head_menu">
                     <h:form>
-                        <p:menu style="width: 152px;">
+                        <p:menu>
                             <p:menuitem value="Home" icon="ui-icon-home" action="HOME" />
                             <p:menuitem value="Terminarz" icon="ui-icon-calendar" />
-                            <p:menuitem value="Magazyn" icon="ui-icon-folder-collapsed" action="STORE_HOUSE" />
                             <p:menuitem value="Opcje" icon="ui-icon-gear" action="USER_OPTIONS" />
                             <p:menuitem value="Admin" icon="ui-icon-arrowreturnthick-1-e" action="ADMIN" />
                         </p:menu>
                     </h:form>
                 </div>
             </p:layoutUnit>
-            <p:layoutUnit position="north" closable="true" collapsible="true" size="65">
-                <h:form id="menuBarForm">  
+            <p:layoutUnit position="north" closable="true" collapsible="true" size="80">
+                <h:form>  
                     <p:menubar>
-                        <p:menuitem value="Dodaj gabinet" icon="ui-icon-document" action="ADD_VET_OFFICE" />
-                        <p:menuitem value="Dodaj lek" icon="ui-icon-document" action="STORE_HOUSE_ADD_SUPPLY" />
+                        <p:submenu label="File" icon="ui-icon-document">
+                        </p:submenu>
 
+                        <p:submenu label="Edit" icon="ui-icon-pencil">
+                        </p:submenu>
+
+                        <p:submenu label="Help" icon="ui-icon-help">
+                        </p:submenu>
+
+                        <p:submenu label="Actions" icon="ui-icon-gear">
+                        </p:submenu>
+
+                        <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
                         <f:facet name="options">
-                            <p:outputLabel value="#{request.remoteUser}" style="margin-right: 5px;" rendered="#{request.userPrincipal != null}" /> 
-                            <p:commandButton type="submit" icon="ui-icon-extlink" value="Wyloguj" action="#{userController.logout}" rendered="#{request.userPrincipal != null}" />
-                            <p:commandButton value="Zaloguj" icon="ui-icon-arrowreturn-1-e" action="LOGIN" rendered="#{request.userPrincipal == null}" />
+                            <p:outputLabel value="#{request.remoteUser}" rendered="#{request.userPrincipal != null}" /> 
+                            <p:commandButton value="Wyloguj" icon="ui-icon-extlink"  action="#{userController.logout()}" rendered="#{request.userPrincipal != null}" />
                         </f:facet>
                     </p:menubar>
                 </h:form>
             </p:layoutUnit>
             <p:layoutUnit position="center">
-                <p:growl autoUpdate="true" />
-                <ui:insert name="content"></ui:insert>
+                <ui:insert name="content">Tutaj</ui:insert>
             </p:layoutUnit>
         </p:layout>
     </h:body>
