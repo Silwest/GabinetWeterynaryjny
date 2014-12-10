@@ -6,15 +6,18 @@ package pl.gw.view;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import org.primefaces.event.RowEditEvent;
 import pl.gw.model.StoreHouse;
 import pl.gw.model.Supply;
 import pl.gw.model.VeterinaryOffice;
 import pl.gw.model.management.StoreHouseBean;
 import pl.gw.model.management.SupplyBean;
 import pl.gw.model.management.VeterinaryOfficeBean;
+import pl.gw.utility.UserMethods;
 
 /**
  *
@@ -48,14 +51,19 @@ public class StoreHouseController implements Serializable {
     }
 
     public String addStoreHouse() {
-        System.out.println("ADDSTOREHOUSE: " + storeHouse.toString());
         storeHouseBean.save(storeHouse);
+        UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Lek został dodany.", "Lek został dodany");
         return "STORE_HOUSE";
     }
 
-    public void check() {
-        System.out.println("KRUWAAAAAAAAAAAAAAAAAAAAAAAAA");
-        System.out.println("storeHousetheme" + storeHouse.toString());
+    public void rowEdit(RowEditEvent event) {
+        StoreHouse updatedStoreHouse = (StoreHouse) event.getObject();
+        try {
+            storeHouseBean.update(updatedStoreHouse);
+            UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Lek został uaktualniony.", "Lek został uaktualniony.");
+        } catch (Exception e) {
+            UserMethods.addMessage(FacesMessage.SEVERITY_FATAL, "Wystąpił bląd.", "Wystąpił bląd.");
+        }
     }
 
     public StoreHouseBean getStoreHouseBean() {

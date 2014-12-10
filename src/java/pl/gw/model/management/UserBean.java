@@ -56,11 +56,11 @@ public class UserBean {
         TypedQuery<User> query = em.createNamedQuery(User.FIND_BY_VER_KEY, User.class);
         query.setParameter("verificationKey", verificationKey);
         List<User> usersList = query.getResultList();
-        if(usersList.isEmpty()){
+        if (usersList.isEmpty()) {
             return null;
         }
         return usersList.get(0);
-        
+
     }
 
     public void detach(User user) {

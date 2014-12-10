@@ -24,7 +24,6 @@ public class VetOfficeConverter implements Converter{
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         VeterinaryOffice vetOffice = vetOfficeBean.find(Integer.parseInt(value));
-        System.out.println(vetOffice.toString());
         return vetOffice;
     }
 
