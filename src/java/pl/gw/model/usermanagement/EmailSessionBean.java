@@ -1,7 +1,7 @@
 /*
  *  Gabinet Weterynaryjny - projekt zaliczeniowy
  */
-package pl.gw.model.management;
+package pl.gw.model.usermanagement;
 
 import java.io.Serializable;
 import java.util.Map;

@@ -35,30 +35,6 @@
             <to-view-id>/admin/index.xhtml</to-view-id>
             <redirect />
         </navigation-case>
-        <navigation-case>
-            <!--<from-action>HOME</from-action>-->
-            <from-outcome>STORE_HOUSE</from-outcome>
-            <to-view-id>/user/storeHouse/storeHouse.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-        <navigation-case>
-            <!--<from-action>HOME</from-action>-->
-            <from-outcome>STORE_HOUSE_ADD_SUPPLY</from-outcome>
-            <to-view-id>/user/storeHouse/addSupply.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-        <navigation-case>
-            <!--<from-action>HOME</from-action>-->
-            <from-outcome>LOGIN</from-outcome>
-            <to-view-id>/public/login.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-        <navigation-case>
-            <!--<from-action>HOME</from-action>-->
-            <from-outcome>ADD_VET_OFFICE</from-outcome>
-            <to-view-id>/admin/addVeterinaryOffice.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
     </navigation-rule>
     <!-- Obsluga wlasnych wiadomosci -->
 </faces-config>
