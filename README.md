@@ -11,7 +11,7 @@ Gabinet Weterynaryjny założenia projektu:
 - baza danych mysql
 - technologia JAVA EE 7, Glassfish Server, JSF, Jquery, JPA, JDBC
 - Spring Hibernate
-- 
+
 Dokumentacja przechowywana bedzie na branchu "dokumentacja"
 
 
