@@ -41,9 +41,9 @@ public class AnimalController implements Serializable {
         animalList = animalBean.findAll();
     }
 
-    public String addAnimal() {
+    public void addAnimal() {
         animalBean.save(animal);
-        return "CLIENT";
+//        return "#";
     }
 
     public AnimalBean getAnimalBean() {

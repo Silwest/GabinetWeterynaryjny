@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -35,6 +36,75 @@
                         </h:panelGrid>
                     </p:panel>
                 </h:form>
+                <h:form id="matchGrid">
+                        <p:messages autoUpdate="true" />
+                        <h:panelGrid columns="1" cellpadding="5">
+                            <p:commandButton value="Nowy Klient" type="button" onclick="PF('dlg1').show();" />
+                        </h:panelGrid>
+                        <p:dialog header="Nowy klient" widgetVar="dlg1" minHeight="40">
+                            <h:panelGrid columns="3" id="matchGrid">
+                                <h:outputLabel for="firstName" value="Imię" />
+                                <p:inputText id="firstName" label="Imię" value="#{cllientController.client.firstName}" required="true" 
+                                             title="Podaj imię klienta">
+                                </p:inputText>
+                                <p:message for="firstName" />
+
+                                <h:outputLabel for="lastName" value="Nazwisko: *" />
+                                <p:inputText id="lastName" label="Imie" value="#{cllientController.client.lastName}" required="true" />
+                                <p:message for="lastName" />
+
+                                <h:outputLabel for="adress" value="Adres: *" />
+                                <p:inputText id="adress" label="Adres" value="#{cllientController.client.adress}" required="true" />
+                                <p:message for="adress" />
+
+                                <h:outputLabel for="zipCode" value="Kod pocztowy *" />
+                                <p:inputText id="zipCode" label="Kod" value="#{cllientController.client.zipCode}" required="true" />
+                                <p:message for="zipCode" />
+
+                                <h:outputLabel for="locality" value="Miejscowość" />
+                                <p:inputText id="locality" label="locality" value="#{cllientController.client.locality}" required="false" />
+                                <p:message for="locality" />
+
+                                <h:outputLabel for="phone" value="Nr telefonu" />
+                                <p:inputText id="phone" label="phone" value="#{cllientController.client.phoneNumber}" required="false" />
+                                <p:message for="phone" />
+
+                            </h:panelGrid>
+                            <p:commandButton update="matchGrid" value="Dodaj" action="#{cllientController.addClient}"/>
+                        </p:dialog>
+
+                    </h:form>
+                    <h:form id="matchGrid2">
+                        <p:messages autoUpdate="true" />
+                        <h:panelGrid columns="1" cellpadding="5">
+                            <p:commandButton value="Nowe zwierze" type="button" onclick="PF('dlg2').show();" />
+                        </h:panelGrid>
+                        <p:dialog header="Nowy klient" widgetVar="dlg2" minHeight="40">
+                            <h:panelGrid columns="3" id="matchGrid">
+                                <h:outputLabel for="firstName" value="Imię" />
+                                <p:inputText id="firstName" label="Imię" value="#{animalController.animal.firstName}" required="true" 
+                                             title="Podaj imię zwierzecia">
+                                </p:inputText>
+                                <p:message for="firstName" />
+
+                                <h:outputLabel for="kind" value="Rasa: *" />
+                                <p:inputText id="kind" label="Rasa" value="#{animalController.animal.kind}" required="true" />
+                                <p:message for="kind" />
+                            <h:outputLabel for="kind" value="Wlasciciel: *" />
+                            <h:selectOneMenu id="clientId"
+                                         value="#{animalController.animal.clientId}" required="true">
+                            <f:selectItems value="#{cllientController.clientList}"
+                                           var="clientId" itemValue="#{clientId}"
+                                           itemLabel="#{clientId.lastName} #{clientId.firstName}" />
+
+                        </h:selectOneMenu>
+
+                            </h:panelGrid>
+                            <p:commandButton update="matchGrid2" value="Dodaj" action="#{animalController.addAnimal}"/>
+                        </p:dialog>
+
+                    </h:form>
+                
             </ui:define>
 
         </ui:composition>

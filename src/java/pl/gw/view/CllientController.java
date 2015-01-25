@@ -39,9 +39,9 @@ public class CllientController implements Serializable {
         clientList = clientBean.findAll();
     }
 
-    public String addClient() {
+    public void  addClient() {
         clientBean.save(client);
-        return "CLIENT";
+//        return "#";
     }
 
     public ClientBean getClientBean() {
