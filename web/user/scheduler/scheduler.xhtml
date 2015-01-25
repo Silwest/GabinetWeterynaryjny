@@ -17,60 +17,63 @@
                 <script type="text/javascript">
                     PrimeFaces.locales['pl'] = {
                         closeText: 'Zamknij',
-                        prevText: 'poprzedni',
-                        nextText: 'następny',
-                        currentText: 'Dziś',
-                        monthNames: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec',
-                            'Lipiec', 'Sierpień', 'Wrześień', 'Październik', 'Listopad', 'Grudzień'],
-                        monthNamesShort: ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Czer',
-                            'Lip', 'Sier', 'Wrz', 'Paz', 'Lis', 'Gru'],
-                        dayNames: ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'],
-                        dayNamesShort: ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Nd'],
-                        dayNamesMin: ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Nd'],
-                        weekHeader: 'aaaaaaaaaaaaa',
-                        firstDay: 0,
+                        prevText: 'Poprzedni',
+                        nextText: 'Następny',
+                        monthNames: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+                        monthNamesShort: ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'],
+                        dayNames: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
+                        dayNamesShort: ['Nie', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'So'],
+                        dayNamesMin: ['N', 'P', 'W', 'Ś', 'Cz', 'P', 'S'],
+                        weekHeader: 'Tydzień',
+                        firstDay: 1,
                         isRTL: false,
                         showMonthAfterYear: false,
-                        yearSuffix: '',
+                        yearSuffix: 'r',
+                        timeOnlyTitle: 'Tylko czas',
+                        timeText: 'Czas',
+                        hourText: 'Godzina',
+                        minuteText: 'Minuta',
+                        secondText: 'Sekunda',
+                        currentText: 'Teraz',
+                        ampm: false,
                         month: 'Miesiąc',
                         week: 'Tydzień',
                         day: 'Dzień',
-                        allDayText: 'Cały dzień'
+                        allDayText: 'Cały dzień',
                     };
                 </script>
             </ui:define>
             <ui:define name="content">
                 <h:form id="schedulerForm">
-                    <p:growl id="messages" showDetail="true" />
-                    <p:schedule id="schedule" value="#{vetScheduleController.eventModel}" style="margin: 0 auto; width: 63%;" locale="pl" widgetVar="myschedule">
+                    <p:growl id="messages" showDetail="true" autoUpdate="true" />
+                    <p:schedule id="schedule" value="#{vetScheduleController.eventModel}" style="margin: 0 auto; width: 63%;" locale="pl" timeZone="Europe/Warsaw" view="agendaWeek"
+                                widgetVar="myschedule" axisFormat="H:mm" timeFormat="H:mm" columnFormat="month: 'ddd', week: 'ddd dd-MM', day:'dddd dd-MM'" firstHour="7" tooltip="true">
                         <p:ajax event="dateSelect" listener="#{vetScheduleController.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                         <p:ajax event="eventSelect" listener="#{vetScheduleController.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                         <p:ajax event="eventMove" listener="#{vetScheduleController.onEventMove}" update="messages" />
                         <p:ajax event="eventResize" listener="#{vetScheduleController.onEventResize}" update="messages" />
                     </p:schedule>
-
                     <p:dialog widgetVar="eventDialog" header="Wizyta" showEffect="clip" hideEffect="clip">
                         <h:panelGrid id="eventDetails" columns="2">
-                            <h:outputLabel for="title" value="Title:" />
-                            <p:inputText id="title" value="#{vetScheduleController.event.title}" required="true" />
+                            <h:outputLabel for="titleEvent" value="Nazwa:" />
+                            <p:inputText id="titleEvent" value="#{vetScheduleController.event.title}" required="true" />
 
-                            <h:outputLabel for="from" value="From:" />
-                            <p:inputMask id="from" value="#{vetScheduleController.event.startDate}" mask="99/99/9999">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                            </p:inputMask>
+                            <h:outputLabel for="fromEvent" value="Początek:" />
+                            <p:calendar id="fromEvent" value="#{vetScheduleController.event.startDate}" pattern="dd/MM/yyyy HH:mm" timeZone="Europe/Warsaw"/>
 
-                            <h:outputLabel for="to" value="To:" />
-                            <p:inputMask id="to" value="#{vetScheduleController.event.endDate}" mask="99/99/9999">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                            </p:inputMask>
+                            <h:outputLabel for="toEvent" value="Koniec:" />
+                            <p:calendar id="toEvent" value="#{vetScheduleController.event.endDate}" pattern="dd/MM/yyyy HH:mm" timeZone="Europe/Warsaw"/>
 
-                            <h:outputLabel for="allDay" value="All Day:" />
-                            <h:selectBooleanCheckbox id="allDay" value="#{vetScheduleController.event.allDay}" />
+                            <h:outputLabel for="descriptionEvent" value="Opis:" />
+                            <p:inputTextarea id="descriptionEvent" value="#{vetScheduleController.event.description}" />
 
-                            <p:commandButton type="reset" value="Reset" />
-                            <p:commandButton id="addButton" value="Save" actionListener="#{vetScheduleController.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                            <h:outputLabel for="allDayEvent" value="Cały dzień:" />
+                            <h:selectBooleanCheckbox id="allDayEvent" value="#{vetScheduleController.event.allDay}" />
+
+                            <p:commandButton id="removeEvent" value="Usuń wizyte" actionListener="#{vetScheduleController.removeEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                            <p:commandButton id="addButtonEvent" value="Dodaj wizyte" actionListener="#{vetScheduleController.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
                         </h:panelGrid>
-                    </p:dialog>    
+                    </p:dialog>
                 </h:form>
             </ui:define>
         </ui:composition>

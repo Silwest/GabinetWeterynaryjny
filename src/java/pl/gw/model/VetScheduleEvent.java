@@ -40,7 +40,7 @@ public class VetScheduleEvent implements Serializable, ScheduleEvent {
     private Integer dbId;
     private String id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "VetScheduleModelId")
+    @JoinColumn(name = "VetScheduleModelId", nullable = false)
     private VetScheduleModel vetScheduleModel;
     private String title;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)

@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
+import org.apache.commons.lang3.time.DateUtils;
 
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -51,19 +52,31 @@ public class VetScheduleController implements Serializable {
             event.setEditable(true);
             vetScheduleEventBean.save(event);
             eventModel.addEvent(event);
+            UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Wizyta została dodana!", "Nazwa" + event.getTitle());
         } else {
             vetScheduleEventBean.update(event);
             eventModel.updateEvent(event);
         }
         event = new VetScheduleEvent();
     }
-
+    
     public void onEventSelect(SelectEvent selectEvent) {
         event = (VetScheduleEvent) selectEvent.getObject();
     }
-
+    
+    public void removeEvent(ActionEvent actionEvent) {
+        System.out.println(event.getDbId());
+        vetScheduleEventBean.remove(event);
+        eventModel.deleteEvent(event);
+        UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Event wyrzucony", "Day delta:" + event.getTitle() + ", Minute delta:" + event.getTitle());
+    }
+    
     public void onDateSelect(SelectEvent selectEvent) {
-        event = new VetScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        // @TODO: Start and End date change
+//        Date startDate = (Date) selectEvent.getObject();
+        Date endDate = (Date) selectEvent.getObject();
+//        event = new VetScheduleEvent("", DateUtils.addHours(startDate, 7), DateUtils.addHours(endDate, 8));
+        event = new VetScheduleEvent("", (Date) selectEvent.getObject(), DateUtils.addHours(endDate, 1));
     }
 
     public void onEventMove(ScheduleEntryMoveEvent event) {
@@ -71,6 +84,7 @@ public class VetScheduleController implements Serializable {
         dbEvent.setStartDate(event.getScheduleEvent().getStartDate());
         dbEvent.setEndDate(event.getScheduleEvent().getEndDate());
         vetScheduleEventBean.update(dbEvent);
+        UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Czas został zmieniony.", dbEvent.getTitle());
     }
 
     public void onEventResize(ScheduleEntryResizeEvent event) {
@@ -78,7 +92,7 @@ public class VetScheduleController implements Serializable {
         dbEvent.setStartDate(event.getScheduleEvent().getStartDate());
         dbEvent.setEndDate(event.getScheduleEvent().getEndDate());
         vetScheduleEventBean.update(dbEvent);
-        UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
+        UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Czas został zmieniony.",dbEvent.getTitle());
     }
 
     public VetScheduleModel getEventModel() {

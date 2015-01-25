@@ -52,16 +52,16 @@ public class VetScheduleEventBean {
         return vetScheduleEventList.get(0);
     }
 
-    public void remove(String vetScheduleEventModel) {
-        VetScheduleEvent vetScheduleEvent = this.find(vetScheduleEventModel);
+    public void remove(String vetScheduleEventTitle) {
+        VetScheduleEvent vetScheduleEvent = this.find(vetScheduleEventTitle);
         if (vetScheduleEvent != null) {
             em.remove(vetScheduleEvent);
         }
     }
 
     public void remove(VetScheduleEvent vetScheduleEvent) {
-        if (vetScheduleEvent != null && vetScheduleEvent.getId() != null && em.contains(vetScheduleEvent)) {
-            em.remove(vetScheduleEvent);
+        if (vetScheduleEvent != null && vetScheduleEvent.getId() != null) {
+            em.remove(em.merge(vetScheduleEvent));
         }
     }
 
