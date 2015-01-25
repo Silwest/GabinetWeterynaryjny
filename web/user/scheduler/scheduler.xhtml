@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../base.xhtml">
+
+            <ui:define name="title">
+                Terminarz
+            </ui:define>
+            <ui:define name="scritp">
+                <script type="text/javascript">
+                    PrimeFaces.locales['pl'] = {
+                        closeText: 'Zamknij',
+                        prevText: 'Poprzedni',
+                        nextText: 'Następny',
+                        monthNames: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+                        monthNamesShort: ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'],
+                        dayNames: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
+                        dayNamesShort: ['Nie', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'So'],
+                        dayNamesMin: ['N', 'P', 'W', 'Ś', 'Cz', 'P', 'S'],
+                        weekHeader: 'Tydzień',
+                        firstDay: 1,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: 'r',
+                        timeOnlyTitle: 'Tylko czas',
+                        timeText: 'Czas',
+                        hourText: 'Godzina',
+                        minuteText: 'Minuta',
+                        secondText: 'Sekunda',
+                        currentText: 'Teraz',
+                        ampm: false,
+                        month: 'Miesiąc',
+                        week: 'Tydzień',
+                        day: 'Dzień',
+                        allDayText: 'Cały dzień',
+                    };
+                </script>
+            </ui:define>
+            <ui:define name="content">
+                <h:form id="schedulerForm">
+                    <p:growl id="messages" showDetail="true" autoUpdate="true" />
+                    <p:schedule id="schedule" value="#{vetScheduleController.eventModel}" style="margin: 0 auto; width: 63%;" locale="pl" timeZone="Europe/Warsaw" view="agendaWeek"
+                                widgetVar="myschedule" axisFormat="H:mm" timeFormat="H:mm" columnFormat="month: 'ddd', week: 'ddd dd-MM', day:'dddd dd-MM'" firstHour="7" tooltip="true">
+                        <p:ajax event="dateSelect" listener="#{vetScheduleController.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                        <p:ajax event="eventSelect" listener="#{vetScheduleController.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                        <p:ajax event="eventMove" listener="#{vetScheduleController.onEventMove}" update="messages" />
+                        <p:ajax event="eventResize" listener="#{vetScheduleController.onEventResize}" update="messages" />
+                    </p:schedule>
+                    <p:dialog widgetVar="eventDialog" header="Wizyta" showEffect="clip" hideEffect="clip">
+                        <h:panelGrid id="eventDetails" columns="2">
+                            <h:outputLabel for="titleEvent" value="Nazwa:" />
+                            <p:inputText id="titleEvent" value="#{vetScheduleController.event.title}" required="true" />
+
+                            <h:outputLabel for="fromEvent" value="Początek:" />
+                            <p:calendar id="fromEvent" value="#{vetScheduleController.event.startDate}" pattern="dd/MM/yyyy HH:mm" timeZone="Europe/Warsaw"/>
+
+                            <h:outputLabel for="toEvent" value="Koniec:" />
+                            <p:calendar id="toEvent" value="#{vetScheduleController.event.endDate}" pattern="dd/MM/yyyy HH:mm" timeZone="Europe/Warsaw"/>
+
+                            <h:outputLabel for="descriptionEvent" value="Opis:" />
+                            <p:inputTextarea id="descriptionEvent" value="#{vetScheduleController.event.description}" />
+
+                            <h:outputLabel for="allDayEvent" value="Cały dzień:" />
+                            <h:selectBooleanCheckbox id="allDayEvent" value="#{vetScheduleController.event.allDay}" />
+
+                            <p:commandButton id="removeEvent" value="Usuń wizyte" actionListener="#{vetScheduleController.removeEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                            <p:commandButton id="addButtonEvent" value="Dodaj wizyte" actionListener="#{vetScheduleController.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
