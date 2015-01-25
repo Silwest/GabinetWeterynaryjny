@@ -65,6 +65,12 @@
             <to-view-id>/user/scheduler/scheduler.xhtml</to-view-id>
             <redirect />
         </navigation-case>
+        <navigation-case>
+            <!--<from-action>HOME</from-action>-->
+            <from-outcome>VISIT</from-outcome>
+            <to-view-id>/user/visit/visit.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
     </navigation-rule>
     <!-- Obsluga wlasnych wiadomosci -->
 </faces-config>

@@ -31,7 +31,6 @@ public class ActivationController {
         if (user == null) {
             valid = false;
         } else {
-            System.out.println("Shehe");
             // TODO: W admin page powinni byc wszyscy uzytkownicy oczekujacy na akceptacje, To admin ustawie flage activated
             user.setActivated(true);
             user.setVerificationKey(null);

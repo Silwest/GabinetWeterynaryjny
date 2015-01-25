@@ -94,7 +94,10 @@ public class VetScheduleController implements Serializable {
         vetScheduleEventBean.update(dbEvent);
         UserMethods.addMessage(FacesMessage.SEVERITY_INFO, "Czas został zmieniony.",dbEvent.getTitle());
     }
-
+    public String moveToVisit(){
+        String redirectPage = "/user/visit/visit.xhtml?faces-redirect=true&includeViewParams=true&id=" + event.getDbId();
+        return redirectPage;
+    }
     public VetScheduleModel getEventModel() {
         return eventModel;
     }

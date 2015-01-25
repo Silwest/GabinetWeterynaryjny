@@ -174,7 +174,8 @@ public class VetScheduleEvent implements Serializable, ScheduleEvent {
 
     @Override
     public String toString() {
-        return "VetScheduleEvent{" + "dbId=" + dbId + ", id=" + id + ", vetScheduleModel=" + vetScheduleModel + ", title=" + title + ", startDate=" + startDate + ", endDate=" + endDate + ", allDay=" + allDay + ", styleClass=" + styleClass + ", data=" + data + ", editable=" + editable + ", description=" + description + '}';
+//        return "VetScheduleEvent{" + "dbId=" + dbId + ", id=" + id + ", vetScheduleModel=" + vetScheduleModel + ", title=" + title + ", startDate=" + startDate + ", endDate=" + endDate + ", allDay=" + allDay + ", styleClass=" + styleClass + ", data=" + data + ", editable=" + editable + ", description=" + description + '}';
+        return "VetScheduleEvent{" + "dbId=" + dbId + ", id=" + id + ", title=" + title + ", startDate=" + startDate + ", endDate=" + endDate + ", allDay=" + allDay + ", styleClass=" + styleClass + ", data=" + data + ", editable=" + editable + ", description=" + description + '}';
     }
 
     @Override

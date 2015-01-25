@@ -72,6 +72,7 @@
 
                             <p:commandButton id="removeEvent" value="Usuń wizyte" actionListener="#{vetScheduleController.removeEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
                             <p:commandButton id="addButtonEvent" value="Dodaj wizyte" actionListener="#{vetScheduleController.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                            <p:commandButton id="goToVisit" value="Idz do wizyty" action="#{vetScheduleController.moveToVisit}" />
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>
