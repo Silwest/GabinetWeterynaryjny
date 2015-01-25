@@ -21,6 +21,9 @@ public class ThemeService {
 
     private List<Theme> themes;
 
+    /**
+     * inicjalizacja motywów
+     */
     @PostConstruct
     public void init() {
         themes = new ArrayList<>();
@@ -64,6 +67,10 @@ public class ThemeService {
         themes.add(new Theme(37, "Vader", "vader"));
     }
 
+    /**
+     * zwraca liste motywów
+     * @return 
+     */
     public List<Theme> getThemes() {
         return themes;
     }

@@ -23,6 +23,13 @@ public class EmailUniquenessValidator implements Validator {
     @Inject
     private UserBean userBean;
 
+    /**
+     * sprawdzenie czy email jest unikalny
+     * @param context
+     * @param component
+     * @param value
+     * @throws ValidatorException 
+     */
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String email = value.toString();

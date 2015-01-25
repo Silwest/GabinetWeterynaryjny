@@ -15,6 +15,10 @@ import java.util.Properties;
  */
 public class PropertyValues {
 
+    /**
+     * metoda zwraca mapowane wartości atrybutuów klasy
+     * @return mapa zawierająca pary : atrybut-wartość
+     */
     public Map<String, String> getPropValues() {
 
         Map<String, String> result = new HashMap<>();

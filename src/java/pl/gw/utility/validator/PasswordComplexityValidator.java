@@ -22,6 +22,13 @@ public class PasswordComplexityValidator implements Validator {
     private Pattern pattern;
     private Matcher matcher;
 
+    /**
+     * metoda sprawdza czy hasło jest wywstarczająco skomplikowanie
+     * @param context
+     * @param component
+     * @param value
+     * @throws ValidatorException 
+     */
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 

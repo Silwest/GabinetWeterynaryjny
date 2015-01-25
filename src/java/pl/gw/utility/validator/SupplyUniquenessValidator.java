@@ -23,6 +23,13 @@ public class SupplyUniquenessValidator implements Validator {
     @Inject
     private SupplyBean suppltBean;
 
+    /**
+     * sprawdza czy nazwa zasobu jest unikalna
+     * @param context
+     * @param component
+     * @param value nazwa zasobu
+     * @throws ValidatorException 
+     */
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String supplyName = value.toString();
