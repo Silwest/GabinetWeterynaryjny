@@ -66,6 +66,10 @@ public class VetScheduleEvent implements Serializable, ScheduleEvent {
         this.startDate = start;
         this.endDate = end;
     }
+        public VetScheduleEvent(Date start, Date end) {
+        this.startDate = start;
+        this.endDate = end;
+    }
 
     public VetScheduleEvent(String title, Date start, Date end, VetScheduleModel model) {
         this.title = title;

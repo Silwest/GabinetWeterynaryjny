@@ -73,6 +73,9 @@
             <!--<from-action>HOME</from-action>-->
             <from-outcome>VISIT</from-outcome>
             <to-view-id>/user/visit/visit.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
             <from-outcome>CLIENT</from-outcome>
             <to-view-id>/user/client/client.xhtml</to-view-id>
             <redirect />
