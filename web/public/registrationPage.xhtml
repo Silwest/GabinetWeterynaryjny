@@ -34,7 +34,16 @@
 
                     <h:outputLabel for="lName" value="Nazwisko: *" />
                     <p:inputText id="lName" label="Nazwisko" value="#{userController.user.lastName}" required="true" />
-                    <p:message for="lName" />
+                    <p:message for="lName" />                  
+                    
+                    <h:outputLabel for="veterinaryOfficeId" value="Gabinet Vet: *" />
+                    <h:selectOneMenu id="veterinaryOfficeId" converter="veterinaryOfficeConverter"
+                                             value="#{veterinaryOfficeController.vetOffice}" required="false">
+                                <f:selectItems value="#{veterinaryOfficeController.vetOfficeList}"
+                                               var="veterinaryOfficeId" itemValue="#{veterinaryOfficeId}"
+                                               itemLabel="#{veterinaryOfficeId.name}" />
+                            </h:selectOneMenu>
+                    <p:message for="veterinaryOfficeId" /> 
 
                 </h:panelGrid>
                 <p:commandButton update="matchGrid" value="Stworz" action="#{userController.doCreateUser}"/>

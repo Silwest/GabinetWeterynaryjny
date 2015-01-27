@@ -5,6 +5,7 @@ package pl.gw.model;
 
 import pl.gw.domain.SupplyType;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -81,6 +83,17 @@ public class Animal implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "clientId")
     private Client clientId;
+    
+     @OneToMany(mappedBy = "animal", fetch = FetchType.EAGER, targetEntity = Visit.class)
+    private List<Visit> visit;
+
+    public List<Visit> getVisit() {
+        return visit;
+    }
+
+    public void setVisit(List<Visit> visit) {
+        this.visit = visit;
+    }
 
     public Animal() {
 

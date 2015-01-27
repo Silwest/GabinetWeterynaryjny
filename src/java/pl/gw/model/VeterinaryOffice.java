@@ -4,13 +4,16 @@
 package pl.gw.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -37,6 +40,30 @@ public class VeterinaryOffice implements Serializable {
 
     @Column(length = 6)
     private String zipCode;
+    
+    
+    @OneToMany(mappedBy = "veterinaryOfficeId", fetch = FetchType.EAGER, targetEntity = User.class)
+    private List<User> users;
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+     @OneToMany(mappedBy = "veterinaryOffice", fetch = FetchType.EAGER, targetEntity = Visit.class)
+    private List<Visit> visits;
+
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
+    }
+    
+    
     
     public Integer getId() {
         return id;

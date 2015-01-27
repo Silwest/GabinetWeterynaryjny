@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import pl.gw.model.Supply;
 import pl.gw.model.VeterinaryOffice;
 
 /**
@@ -45,6 +46,10 @@ public class VeterinaryOfficeBean {
         if (vetOffice != null) {
             em.remove(vetOffice);
         }
+    }
+    
+        public VeterinaryOffice findById(Integer veterinaryOfficeId){
+        return em.find(VeterinaryOffice.class, veterinaryOfficeId);
     }
 
     public void remove(VeterinaryOffice vetOffice) {

@@ -18,8 +18,10 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -86,8 +88,9 @@ public class User implements Serializable {
 
     private boolean activated = false;
 
-    @OneToOne
-    private VeterinaryOffice vetOffice;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "veterinaryOfficeId")
+    private VeterinaryOffice veterinaryOfficeId;
 
     public User() {
     }
@@ -187,12 +190,12 @@ public class User implements Serializable {
         this.activated = activated;
     }
 
-    public VeterinaryOffice getVetOffice() {
-        return vetOffice;
+    public VeterinaryOffice getVeterinaryOfficeId() {
+        return veterinaryOfficeId;
     }
 
-    public void setVetOffice(VeterinaryOffice vetOffice) {
-        this.vetOffice = vetOffice;
+    public void setVetOfficeId(VeterinaryOffice vetOffice) {
+        this.veterinaryOfficeId = vetOffice;
     }
 
     @Override
